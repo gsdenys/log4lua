@@ -18,6 +18,7 @@ build = {
    type = "builtin",
    modules = {
      ['log4lua'] = "src/log4lua/logger.lua",
-     ['log4lua.level'] = "src/log4lua/level.lua",
+     ['log4lua.channel'] = "src/log4lua/channel.lua",
+     ['log4lua.common'] = "src/log4lua/common.lua",
    }
 }

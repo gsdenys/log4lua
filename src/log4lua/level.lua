@@ -13,26 +13,48 @@
 -- limitations under the License.
 
 
---- Level module to decise itself between the log levels type according 
---- the deploy location.
---- The possible leves according the decreasing priority are:
+--- The log levels according their priority
+local available = {
+    CRIT   = 3,
+    ERR    = 4,
+    WARN   = 5,
+    NOTICE = 6,
+    INFO   = 7,
+    DEBUG  = 8
+}
+
+--- Level module to decide itself between the log levels type according the
+--- deploy location. Nowadays, there are 2 kinds of deploy location, inside 
+--- and outside openresty/nginx.
+--- @module level
+local level = {
+  types = available,
+  current = {}
+}
+
+--- get_key_for_value local function to create the available invese map. It's
+--- usefull to get the key name based on value
+local function get_key_for_value(value )
+  for k,v in pairs(available) do
+    if v==value then return k end
+  end
+  return nil
+end
+
+--- setlevel function to redefine the log level that'll be used on the system.
+--- There are 6 kind of levels:
 ---     1. DEBUG
 ---     2. INFO
 ---     3. NOTICE
 ---     4. WARN
 ---     5. ERR
 ---     6. CRIT
---- Nowadays, there are 2 kinds of log levels, the NGX and Print.
----
---- @module level
-local level = {
-    DEBUG  = if _G.ngx then _G.ngx.DEBUG  else 8 end,
-    INFO   = if _G.ngx then _G.ngx.INFO   else 7 end,
-    NOTICE = if _G.ngx then _G.ngx.NOTICE else 6 end,
-    WARN   = if _G.ngx then _G.ngx.WARN   else 5 end,
-    ERR    = if _G.ngx then _G.ngx.ERR    else 4 end,
-    CRIT   = if _G.ngx then _G.ngx.CRIT   else 3 end
-}
- 
--- return the level object
+function level:set_level(level)
+    local level_name = get_key_for_value(level)
+    self.current = {name= level_name,  value=level} 
+end
+
+-- By default the log level is initiated as level INFO
+level:set_level(level.types.INFO)
+
 return level
