@@ -26,12 +26,12 @@
 ---
 --- @module level
 local level = {
-    DEBUG  = _G.ngx? _G.ngx.DEBUG  : 8,
-    INFO   = _G.ngx? _G.ngx.INFO   : 7,
-    NOTICE = _G.ngx? _G.ngx.NOTICE : 6,
-    WARN   = _G.ngx? _G.ngx.WARN   : 5,
-    ERR    = _G.ngx? _G.ngx.ERR    : 4,
-    CRIT   = _G.ngx? _G.ngx.CRIT   : 3
+    DEBUG  = if _G.ngx then _G.ngx.DEBUG  else 8 end,
+    INFO   = if _G.ngx then _G.ngx.INFO   else 7 end,
+    NOTICE = if _G.ngx then _G.ngx.NOTICE else 6 end,
+    WARN   = if _G.ngx then _G.ngx.WARN   else 5 end,
+    ERR    = if _G.ngx then _G.ngx.ERR    else 4 end,
+    CRIT   = if _G.ngx then _G.ngx.CRIT   else 3 end
 }
  
 -- return the level object
