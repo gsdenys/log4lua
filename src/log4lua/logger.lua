@@ -70,6 +70,13 @@ function logger.error(...)
     return
   end
   log(ERR, va_table_to_string({...}))
+
+  log(ERR, to_string(_G.ngx.DEBUG).." DEBUG")
+  log(ERR, to_string(_G.ngx.INFO).." INFO")
+  log(ERR, to_string(_G.ngx.NOTICE).." NOTICE")
+  log(ERR, to_string(_G.ngx.WARN).." WARN")
+  log(ERR, to_string(_G.ngx.ERR).." ERR")
+  log(ERR, to_string(_G.ngx.CRIT).." CRIT")
 end
 
 function logger.info(...)
