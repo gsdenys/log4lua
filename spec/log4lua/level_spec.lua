@@ -19,18 +19,14 @@ describe("log4lua.level", function()
 
     describe("Default Level", function()
         it("Should return log INFO", function()
-
-            local test = {name = "INFO", value = 7}
-            assert.are.same(level.current, test)
+            assert.are.same(level.current, level.INFO)
         end)
     end)
-    
+
     describe("set_level", function()
         it("Should return log ERR", function()
-            level:set_level(level.types.ERR)
-
-            local test = {name = "ERR", value = 4}
-            assert.are.same(level.current, test)
+            level:set_level(level.ERR)
+            assert.are.same(level.current, level.ERR)
         end)
     end)
 end)

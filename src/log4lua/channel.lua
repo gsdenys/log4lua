@@ -19,11 +19,11 @@ local Channel = {}
 Channel.__index = Channel
 
 local function ngx_log(level, str)
-    _G.ngx.log(level.current.value, str)
+    _G.ngx.log(level.value, str)
 end
 
 local function print_log(level, str)
-    print('['..level.current.name..']', str)
+    print('['..level.name..']', str)
 end
 
 function Channel.new(level)
@@ -36,7 +36,7 @@ function Channel.new(level)
 end
 
 function Channel:log(level, ...)
-    if level < self.level.current.value then
+    if level.value < self.level.current.value then
         return
     end
 
