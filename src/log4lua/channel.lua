@@ -36,7 +36,7 @@ function Channel.new(level)
 end
 
 function Channel:log(level, ...)
-    if level < self.current.value then
+    if level < self.level.current.value then
         return
     end
 
