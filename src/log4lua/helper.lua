@@ -13,11 +13,8 @@
 -- limitations under the License.
 
 
-local commom = {}
 
-
-
-local function commom.table_to_string(tbl)
+local function table_to_string(tbl)
     local res = ""
     for _,value in pairs(tbl) do
       res = res .. commom.to_string(v) .. "\t"
@@ -26,7 +23,7 @@ local function commom.table_to_string(tbl)
 end
 
 
-local function commom.to_string(object_)
+function to_string(object_)
     if object_ == nil then
         return ""
     end
@@ -53,4 +50,6 @@ local function commom.to_string(object_)
     return tbl_string
 end
 
-return common
+return {
+    ['table_to_string'] = table_to_string
+}

@@ -42,13 +42,6 @@ local function get_key_for_value(value )
 end
 
 --- setlevel function to redefine the log level that'll be used on the system.
---- There are 6 kind of levels:
----     1. DEBUG
----     2. INFO
----     3. NOTICE
----     4. WARN
----     5. ERR
----     6. CRIT
 function level:set_level(level)
     local level_name = get_key_for_value(level)
     self.current = {name= level_name,  value=level} 

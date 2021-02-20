@@ -13,12 +13,15 @@ description = {
    maintainer = "Denys G. Santos <gsdenys@gmail.com>",
    license = "Apache 2.0"
 }
-dependencies = {}
+dependencies = {
+   "lua >= 5.1"
+}
 build = {
    type = "builtin",
    modules = {
      ['log4lua'] = "src/log4lua/logger.lua",
+     ['log4lua.level'] = "src/log4lua/level.lua",
+     ['log4lua.helper'] = "src/log4lua/helper.lua",
      ['log4lua.channel'] = "src/log4lua/channel.lua",
-     ['log4lua.common'] = "src/log4lua/common.lua",
    }
 }
