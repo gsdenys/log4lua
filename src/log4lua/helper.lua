@@ -36,10 +36,10 @@ function to_string(object_)
 
     for key,value in pairs(object_) do
         if key ~= nil then
-            tbl_string = tbl_string .. commom.to_string(key) .. ":"
+            tbl_string = tbl_string .. to_string(key) .. ":"
         end
         if value ~= nil then
-            tbl_string = tbl_string .. commom.to_string(value)
+            tbl_string = tbl_string .. to_string(value)
         end
 
         tbl_string = tbl_string .. " "
