@@ -17,7 +17,7 @@
 local function table_to_string(tbl)
     local res = ""
     for _,value in pairs(tbl) do
-      res = res .. to_string(v) .. "\t"
+      res = res .. to_string(value) .. "\t"
     end
     return res
 end
@@ -51,5 +51,6 @@ function to_string(object_)
 end
 
 return {
-    ['table_to_string'] = table_to_string
+    ['table_to_string'] = table_to_string,
+    ['to_string'] = to_string
 }

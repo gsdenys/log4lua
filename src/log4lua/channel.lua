@@ -23,7 +23,7 @@ local function ngx_log(level, str)
 end
 
 local function print_log(level, str)
-    print('['..level.name..']', str)
+    print(string.format('[%s] %s %s', level.name, os.date("%Y-%m-%d %H:%M:%S"), str))
 end
 
 function Channel.new(level)
@@ -36,15 +36,17 @@ function Channel.new(level)
 end
 
 function Channel:log(level, ...)
-    if level.value < self.level.current.value then
+    if level.value < self.level.value then
         return
     end
 
     self.log_func(level, helper.table_to_string({...}))
 end
 
+print(helper.table_to_string({"olá", "qdfas"}))
 
-local ch = Channel.new(level)
-ch:log(level.types.INFO, "olá")
+
+local ch = Channel.new(level.INFO)
+ch:log(level.INFO, {"olá"})
 
 return Channel
