@@ -23,7 +23,8 @@ local function ngx_log(level, str)
 end
 
 local function print_log(level, str)
-    print(string.format('[%s] %s %s', level.name, os.date("%Y-%m-%d %H:%M:%S"), str))
+    a = debug.getinfo(1, 'Snl').source:match("([^/]+)$")
+    print(string.format('[%s] %s %s %s', level.name, os.date("%Y-%m-%d %H:%M:%S"), a, str))
 end
 
 function Channel.new(level)
@@ -42,11 +43,5 @@ function Channel:log(level, ...)
 
     self.log_func(level, helper.table_to_string({...}))
 end
-
-print(helper.table_to_string({"olá", "qdfas"}))
-
-
-local ch = Channel.new(level.INFO)
-ch:log(level.INFO, {"olá"})
 
 return Channel
