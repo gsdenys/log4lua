@@ -7,7 +7,8 @@
 
 local logger = {}
 
-local level = require 'log4lua.channel'
+local channel = require 'log4lua.channel'
+
 
 
 -- logging scaffold

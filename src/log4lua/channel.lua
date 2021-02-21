@@ -23,14 +23,29 @@ local function ngx_log(level, str)
 end
 
 local function print_log(level, str)
-    a = debug.getinfo(1, 'Snl').source:match("([^/]+)$")
+    
     print(string.format('[%s] %s %s %s', level.name, os.date("%Y-%m-%d %H:%M:%S"), a, str))
 end
 
-function Channel.new(level)
+local function get_file_name(file_path)
+    return debug.getinfo(1, 'Snl').source:match("([^/]+)$")
+end
+
+local function get_log_level()
+    if _G.log_level then
+        return _G.log_level
+    end
+
+    return level.INFO
+end
+
+function Channel.new(file_path)
     local self = setmetatable({}, Channel)
     
-    self.level = level
+    self.file = get_file_name(file_path)
+
+    level:set_level(get_log_level())
+
     self.log_func = _G.ngx and ngx_log or print_log
 
     return self
