@@ -13,27 +13,33 @@
 -- limitations under the License.
 
 
---- Level module to decide itself between the log levels type according the
---- deploy location. Nowadays, there are 2 kinds of deploy location, inside 
---- and outside openresty/nginx.
---- @module level
+--- The log system main module.
 local level = {
-  CRIT   = { value = 3, name = "CRIT"   },
-  ERR    = { value = 4, name = "ERR"    }, 
-  WARN   = { value = 5, name = "WARN"   },
-  NOTICE = { value = 6, name = "NOTICE" },
-  INFO   = { value = 7, name = "INFO"   },
-  DEBUG  = { value = 8, name = "DEBUG"  },
+    --- Any error that is forcing a shutdown of the service or application to prevent 
+    --- data loss (or further data loss). It's reserved only for the most heinous errors 
+    --- and situations where there is guaranteed to have been data corruption or loss.
+    CRIT   = { value = 3, name = "DEBUG" },
 
-  current = {}
+    --- Any error which is fatal to the operation, but not the service or application 
+    --- (can't open a required file, missing data, etc.). These errors will force user
+    --- (administrator, or direct user) intervention. These are usually reserved for 
+    --- incorrect connection strings, missing services, etc.
+    ERROR  = { value = 4, name = "ERROR" },
+
+    --- Anything that can potentially cause application oddities, but for which 
+    --- automatically recovering.
+    WARN   = { value = 5, name = "WARN" },
+
+    --- The same of INFO but that need to be highlighted notes.
+    NOTICE = { value = 6, name = "DEBUG" },
+
+    --- Useful information to log (service start/stop, configuration assumptions, etc). 
+    --- Info is always available but usually don't care about under normal circumstances. 
+    --- This is the out-of-the-box config level.
+    INFO   = { value = 7, name = "INFO" },
+
+     --- Information that is diagnostically helpful to people more than just developers (IT, sysadmins, etc.).
+    DEBUG  = { value = 8, name = "DEBUG" } 
 }
-
---- setlevel function to redefine the log level that'll be used on the system.
-function level:set_level(level_)
-    self.current = level_
-end
-
--- set level default as INFO
-level:set_level(level.INFO)
 
 return level

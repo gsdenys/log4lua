@@ -1,8 +1,7 @@
 package = "log4lua"
-version = "0.0.1"
+version = "scm-2"
 source = {
   url = "git://github.com/gsdenys/log4lua.git",
-  branch = "0.0.1"
 }
 description = {
    summary = "Multi environment lua logger",
@@ -20,9 +19,18 @@ dependencies = {
 build = {
    type = "builtin",
    modules = {
-     ['log4lua'] = "src/log4lua/logger.lua",
-     ['log4lua.level'] = "src/log4lua/level.lua",
-     ['log4lua.helper'] = "src/log4lua/helper.lua",
-     ['log4lua.channel'] = "src/log4lua/channel.lua",
+      ['log4lua'] = "src/log4lua.lua",
+
+      ['log4lua.info'] = "src/log4lua/info.lua"
+      ['log4lua.level'] = "src/log4lua/level.lua",
+      ['log4lua.logger'] = "src/log4lua/logger.lua",
+      ['log4lua.performer'] = "src/log4lua/performer.lua",
+      ['log4lua.helper'] = "src/log4lua/helper.lua"
+
+
+   --   ['log4lua'] = "src/log4lua/logger.lua",
+   --   ['log4lua.level'] = "src/log4lua/level.lua",
+   --   ['log4lua.helper'] = "src/log4lua/helper.lua",
+   --   ['log4lua.channel'] = "src/log4lua/channel.lua",
    }
 }

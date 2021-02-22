@@ -12,24 +12,18 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
-local level = require 'log4lua.level'
-local performer = require 'performer'
-local helper = require 'helper'
 
-local logger = {
-    --- The default logger level
-    level = level.INFO,
+--- Basic project information that define the Copyright, Description, and 
+--- the current version
+local information = {
+    --- The project COPYRIGHT
+    _COPYRIGHT = "Copyright (C) 2021 gsdenys",
+    
+    --- The project DESCRIPTION
+    _DESCRIPTION = "A Multi environment lua logger",
 
-    --- The default logger performer based on the deploy environment
-    performer = _G.ngx and performer.nginx or performer.stdout 
+    --- The project VERSION
+    _VERSION = "log4lua 0.1.0"
 }
 
-function logger:set_level(level_)
-    self.level = level_
-end
-
-local function logger:log(level_, ...)
-    local str = helper.table_to_string({...})
-    
-    self.performer(level_, str)
-end
+return information
