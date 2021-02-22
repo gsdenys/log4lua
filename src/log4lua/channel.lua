@@ -13,50 +13,36 @@
 -- limitations under the License.
 
 local helper = require 'log4lua.helper'
-local level  = require 'log4lua.level'
 
-local Channel = {}
-Channel.__index = Channel
+local channel = {
+    level = require 'log4lua.level'
+}
 
-local function ngx_log(level, str)
-    _G.ngx.log(level.value, str)
+local function ngx_log(level_, str)
+    _G.ngx.log(level_.value, str)
 end
 
-local function print_log(level, str)
-    
-    print(string.format('[%s] %s %s %s', level.name, os.date("%Y-%m-%d %H:%M:%S"), a, str))
+local function print_log(level_, str)
+    print(string.format('[%s] %s %s', level_.name, os.date("%Y-%m-%d %H:%M:%S"), str))
 end
 
-local function get_file_name(file_path)
-    return debug.getinfo(1, 'Snl').source:match("([^/]+)$")
-end
-
-local function get_log_level()
-    if _G.log_level then
-        return _G.log_level
+function channel:get_log_level()
+    if _G.LOG_LEVEL then
+        return _G.LOG_LEVEL
     end
 
-    return level.INFO
+    return self.level.INFO
 end
 
-function Channel.new(file_path)
-    local self = setmetatable({}, Channel)
-    
-    self.file = get_file_name(file_path)
-
-    level:set_level(get_log_level())
-
-    self.log_func = _G.ngx and ngx_log or print_log
-
-    return self
-end
-
-function Channel:log(level, ...)
-    if level.value < self.level.value then
+function channel:log(level_, ...)
+    if level_.value > self.level.current.value then
         return
     end
-
-    self.log_func(level, helper.table_to_string({...}))
+    
+    self.log_func(level_, helper.table_to_string({...}))
 end
 
-return Channel
+channel.level:set_level(channel:get_log_level())
+channel.log_func = _G.ngx and ngx_log or print_log
+
+return channel

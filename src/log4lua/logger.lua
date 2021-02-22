@@ -5,44 +5,26 @@
 -- logger
 --
 
-local logger = {}
-
+local level = require 'log4lua.level' 
 local channel = require 'log4lua.channel'
 
+local logger = {
+}
 
-
--- logging scaffold
-local log = channel.logger()
-local level_ = channel.levels().INFO
-
-function logger.set_level(level)
-  level_ = level
+function logger.set_level(level_)
+   channel:set_level(level_)
 end
 
 function logger.error(...)
-  if level_ < ERR then
-    return
-  end
-  log(ERR, commom.table_to_string({...}))
+  channel:log(level.ERR, {...})
 end
 
 function logger.info(...)
-  if level_ < INFO then
-    return
-  end
-  log(INFO, commom.table_to_string({...}))
+  channel:log(level.INFO, {...})
 end
 
-function logger.dbg(...)
-  if level_ ~= DEBUG then
-    return
-  end
-
-  log(DEBUG, commom.table_to_string({...}))
-end
-
-function logger.is_debug_enabled()
-  return level_ == DEBUG
+function logger.debug(...)
+  channel:log(level.DEBUG, {...})
 end
 
 return logger

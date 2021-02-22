@@ -1,7 +1,8 @@
-local level = require('log4lua.level')
-local channel = require('log4lua.channel')
 
-local ch = channel.new(level.INFO)
-ch:log(level.INFO, "ola")
+local logger = require('log4lua')
+
+logger.info("info")
+logger.error("err")
+logger.debug("debug")
 
 -- logger.info(level.DEBUG)

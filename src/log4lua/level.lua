@@ -33,21 +33,6 @@ function level:set_level(level_)
     self.current = level_
 end
 
-local function get_log_level()
-  -- check log from global env
-  if _G.LOG_LEVEL then
-    -- iterate over all level info
-    for k,v in ipairs(level) do
-      if type(v) == "table" and k ~= "current" then
-        if v.name == _G.LOG_LEVEL then
-          return v
-        end
-      end
-    end
-  end
-  return level.INFO
-end
-
 -- set level default as INFO
 level:set_level(level.INFO)
 
