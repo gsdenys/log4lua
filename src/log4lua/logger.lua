@@ -14,6 +14,7 @@
 
 local level = require 'log4lua.level'
 local performer = require 'performer'
+local helper = require 'helper'
 
 local logger = {
     --- The default logger level
@@ -28,7 +29,7 @@ function logger:set_level(level_)
 end
 
 local function logger:log(level_, ...)
-    
+    local str = helper.table_to_string({...})
     
     self.performer(level_, str)
 end

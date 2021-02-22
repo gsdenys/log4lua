@@ -30,6 +30,7 @@ function log4lua.get_logger(level_)
         logger.set_level(level_)
     end
 
+    return logger
 end
 
 return log4lua
