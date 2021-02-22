@@ -12,23 +12,24 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
+require 'pl'
+
+local info = require 'log4lua.info'
 local level = require 'log4lua.level'
-local performer = require 'performer'
 
-local logger = {
-    --- The default logger level
-    level = level.INFO,
 
-    --- The default logger performer based on the deploy environment
-    performer = _G.ngx and performer.nginx or performer.stdout 
-}
 
-function logger:set_level(level_)
-    self.level = level_
+-- create composition of log4lua and info table
+local log4lua = tablex.merge(level, info, true)
+
+--- Create new logger object that possibilite use of log element
+function log4lua.get_logger(level_)
+    local logger = require 'log4lua.logger'
+
+    if level_ ~= nil then
+        logger.set_level(level_)
+    end
+
 end
 
-local function logger:log(level_, ...)
-    
-    
-    self.performer(level_, str)
-end
+return log4lua

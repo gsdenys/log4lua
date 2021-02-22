@@ -12,23 +12,18 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
-local level = require 'log4lua.level'
-local performer = require 'performer'
+--- perform log using print method
+function stdout(level_, log_str)
+    print(string.format('[%s] %s %s', level_.name, os.date("%Y-%m-%d %H:%M:%S"), str))
+end
 
-local logger = {
-    --- The default logger level
-    level = level.INFO,
+--- perform log using nginx log method
+function nginx(level_, log_str)
+    _G.ngx.log(level_.value, log_str)
+end
 
-    --- The default logger performer based on the deploy environment
-    performer = _G.ngx and performer.nginx or performer.stdout 
+-- return performers
+return {
+    ['stdout'] = stdout,
+    ['nginx'] = nginx
 }
-
-function logger:set_level(level_)
-    self.level = level_
-end
-
-local function logger:log(level_, ...)
-    
-    
-    self.performer(level_, str)
-end
