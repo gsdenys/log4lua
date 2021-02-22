@@ -14,9 +14,11 @@ description = {
    maintainer = "Denys G. Santos <gsdenys@gmail.com>",
    license = "Apache 2.0"
 }
+
 dependencies = {
    "lua >= 5.1"
 }
+
 build = {
    type = "builtin",
    modules = {
