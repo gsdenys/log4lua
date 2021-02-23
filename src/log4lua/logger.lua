@@ -30,6 +30,29 @@ end
 
 local function logger:log(level_, ...)
     local str = helper.table_to_string({...})
-    
     self.performer(level_, str)
+end
+
+local function logger:debug(...)
+    self.log(level.DEBUG, {...})
+end
+
+local function logger:info(...)
+    self.log(level.INFO, {...})
+end
+
+local function logger:notice(...)
+    self.log(level.NOTICE, {...})
+end
+
+local function logger:warn(...)
+    self.log(level.WARN, {...})
+end
+
+local function logger:error(...)
+    self.log(level.ERROR, {...})
+end
+
+local function logger:crit(...)
+    self.log(level.CRIT, {...})
 end
