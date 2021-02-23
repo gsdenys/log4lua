@@ -24,15 +24,27 @@ local logger = {
     performer = _G.ngx and performer.nginx or performer.stdout 
 }
 
+--- Set the log level. in case of level are nil, the level info will be selected.
 function logger:set_level(level_)
+    if level_ == nil then
+        self.level = level.INFO
+        return
+    end
+
     self.level = level_
 end
 
+--- Perform the log using the selected performer.
 local function logger:log(level_, ...)
+    if level.value < self.level.value then
+        return
+    end
+
     local str = helper.table_to_string({...})
     self.performer(level_, str)
 end
 
+--- log debug
 local function logger:debug(...)
     self.log(level.DEBUG, {...})
 end
