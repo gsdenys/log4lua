@@ -12,19 +12,18 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
---- perform log using print method
-function stdout(level_, log_str)
-    msg =string.format('[%s] %s %s', level_.name, os.date("%Y-%m-%d %H:%M:%S"), log_str)
-    print(msg)
-end
+require 'busted.runner'()
 
---- perform log using nginx log method
-function nginx(level_, log_str)
-    _G.ngx.log(level_.value, log_str)
-end
+describe("log4lua.performer", function()
+    local performer = require 'log4lua.performer'
+    local level = require 'log4lua.level'
+    
+    describe("print", function()
+        spy.on(_G, "print")
 
--- return performers
-return {
-    ['stdout'] = stdout,
-    ['nginx'] = nginx
-}
+        performer.stdout(level.INFO, "hello world")
+        
+        assert.spy(print).was.called()
+    end)
+end)
+    
