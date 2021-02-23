@@ -36,6 +36,8 @@ end
 
 --- Perform the log using the selected performer.
 local function logger:log(level_, ...)
+
+    -- just log if the level has more granularity then the selected log level
     if level.value < self.level.value then
         return
     end
