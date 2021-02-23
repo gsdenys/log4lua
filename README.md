@@ -1,4 +1,4 @@
-# log4lua
+# Log 4 Lua
 
 A simple log library for lua. It can be applyed to a NGINX/OpenResty or lua script.
 
