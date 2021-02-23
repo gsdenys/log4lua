@@ -14,23 +14,28 @@
 
 require 'busted.runner'()
 
-describe("log4lua.channel", function()
-    local channel = require 'log4lua.channel'
-    local level = require 'log4lua.level'
-
-    describe("Default Level", function()
-        it("Should return log INFO", function()
-            assert.are.same(level.INFO, channel.level.current)
-        end)
+describe("log4lua.info", function()
+    local info = require 'log4lua.info'
+    
+    it("_COPYRIGHT Should not be empty.", function()
+        local copy_right = info._COPYRIGHT
+        
+        assert.truthy(copy_right)
+        assert.falsy(#copy_right == 0)
     end)
 
-    describe("_G.LOG_LEVEL", function()
-        it("Should return log ERR", function()
-            _G.LOG_LEVEL = level.ERR
-            
-            local c = require 'log4lua.channel'
+    it("_DESCRIPTION Should not be empty.", function()
+        local desc = info._DESCRIPTION
+        
+        assert.truthy(desc)
+        assert.falsy(#desc == 0)
+    end)
 
-            assert.are.same(c.level.current, level.ERR)
-        end)
+    it("_VERSION Should not be empty.", function()
+        local version = info._VERSION
+        
+        assert.truthy(version)
+        assert.falsy(#version == 0)
     end)
 end)
+    

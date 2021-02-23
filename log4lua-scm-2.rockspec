@@ -26,11 +26,5 @@ build = {
       ['log4lua.logger'] = "src/log4lua/logger.lua",
       ['log4lua.performer'] = "src/log4lua/performer.lua",
       ['log4lua.helper'] = "src/log4lua/helper.lua"
-
-
-   --   ['log4lua'] = "src/log4lua/logger.lua",
-   --   ['log4lua.level'] = "src/log4lua/level.lua",
-   --   ['log4lua.helper'] = "src/log4lua/helper.lua",
-   --   ['log4lua.channel'] = "src/log4lua/channel.lua",
    }
 }

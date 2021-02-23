@@ -18,7 +18,7 @@ local level = {
     --- Any error that is forcing a shutdown of the service or application to prevent 
     --- data loss (or further data loss). It's reserved only for the most heinous errors 
     --- and situations where there is guaranteed to have been data corruption or loss.
-    CRIT   = { value = 3, name = "DEBUG" },
+    CRIT   = { value = 3, name = "CRIT" },
 
     --- Any error which is fatal to the operation, but not the service or application 
     --- (can't open a required file, missing data, etc.). These errors will force user
@@ -31,7 +31,7 @@ local level = {
     WARN   = { value = 5, name = "WARN" },
 
     --- The same of INFO but that need to be highlighted notes.
-    NOTICE = { value = 6, name = "DEBUG" },
+    NOTICE = { value = 6, name = "NOTICE" },
 
     --- Useful information to log (service start/stop, configuration assumptions, etc). 
     --- Info is always available but usually don't care about under normal circumstances. 

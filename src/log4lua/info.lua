@@ -20,7 +20,7 @@ local information = {
     _COPYRIGHT = "Copyright (C) 2021 gsdenys",
     
     --- The project DESCRIPTION
-    _DESCRIPTION = "A Multi environment lua logger",
+    _DESCRIPTION = "A simple log library for lua. It can be applyed to a NGINX/OpenResty or lua script.",
 
     --- The project VERSION
     _VERSION = "log4lua 0.1.0"

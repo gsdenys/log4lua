@@ -17,16 +17,87 @@ require 'busted.runner'()
 describe("log4lua.level", function()
     local level = require 'log4lua.level'
 
-    describe("Default Level", function()
-        it("Should return log INFO", function()
-            assert.are.same(level.current, level.INFO)
+    describe("DEBUG", function()
+        it("should not be empty.", function()
+            assert.truthy(level.DEBUG)
+        end)
+
+        it("should have name DEBUG.", function()
+            assert.equals(level.DEBUG.name, "DEBUG")
+        end)
+
+        it("should have value 8.", function()
+            assert.equals(level.DEBUG.value, 8)
         end)
     end)
 
-    describe("set_level", function()
-        it("Should return log ERR", function()
-            level:set_level(level.ERR)
-            assert.are.same(level.current, level.ERR)
+    describe("INFO", function()
+        it("should not be empty.", function()
+            assert.truthy(level.INFO)
+        end)
+
+        it("should have name INFO.", function()
+            assert.equals(level.INFO.name, "INFO")
+        end)
+
+        it("should have value 7.", function()
+            assert.equals(level.INFO.value, 7)
+        end)
+    end)
+
+    describe("NOTICE", function()
+        it("should not be empty.", function()
+            assert.truthy(level.NOTICE)
+        end)
+
+        it("should have name INFO.", function()
+            assert.equals(level.NOTICE.name, "NOTICE")
+        end)
+
+        it("should have value 6.", function()
+            assert.equals(level.NOTICE.value, 6)
+        end)
+    end)
+
+    describe("WARN", function()
+        it("should not be empty.", function()
+            assert.truthy(level.WARN)
+        end)
+
+        it("should have name WARN.", function()
+            assert.equals(level.WARN.name, "WARN")
+        end)
+
+        it("should have value 5.", function()
+            assert.equals(level.WARN.value, 5)
+        end)
+    end)
+
+    describe("ERROR", function()
+        it("should not be empty.", function()
+            assert.truthy(level.ERROR)
+        end)
+
+        it("should have name ERROR.", function()
+            assert.equals(level.ERROR.name, "ERROR")
+        end)
+
+        it("should have value 4.", function()
+            assert.equals(level.ERROR.value, 4)
+        end)
+    end)
+
+    describe("CRIT", function()
+        it("should not be empty.", function()
+            assert.truthy(level.CRIT)
+        end)
+
+        it("should have name CRIT.", function()
+            assert.equals(level.CRIT.name, "CRIT")
+        end)
+
+        it("should have value 3.", function()
+            assert.equals(level.CRIT.value, 3)
         end)
     end)
 end)

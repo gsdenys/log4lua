@@ -13,12 +13,20 @@
 -- limitations under the License.
 
 
-
+--- Transform table to string
 local function table_to_string(tbl)
     local res = ""
+    local first = true
+
     for _,value in pairs(tbl) do
-      res = res .. to_string(value) .. "\t"
+      if not first then
+        res = res .. " "
+      else
+        first = false
+      end
+      res = res .. to_string(value)
     end
+
     return res
 end
 
@@ -33,16 +41,21 @@ function to_string(object_)
     end
 
     local tbl_string = "["
+    local first = true
 
     for key,value in pairs(object_) do
+        if not first then
+            tbl_string = tbl_string .. " "
+        else
+            first = false
+        end
+        
         if key ~= nil then
             tbl_string = tbl_string .. to_string(key) .. ":"
         end
         if value ~= nil then
             tbl_string = tbl_string .. to_string(value)
         end
-
-        tbl_string = tbl_string .. " "
     end
 
     tbl_string = tbl_string .. "]"
