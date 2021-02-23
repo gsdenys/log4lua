@@ -16,8 +16,11 @@ luarocks install log4lua
 The following code is an use example of __log4lua__ data. 
 
 ```lua
-local log4lua = require 'log4lua' 
+local log4lua = require 'log4lua'
 log = log4lua.get_logger(self)
+
+-- it is not necessary. In caso of this line omission, the log level will be 'log4lua.INFO'
+log.set_level(log4lua.DEBUG)
 
 log.crit("Hello crit")
 log.error("Hello Error")
