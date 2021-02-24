@@ -13,8 +13,8 @@
 -- limitations under the License.
 
 local level = require 'log4lua.level'
-local performer = require 'performer'
-local helper = require 'helper'
+local performer = require 'log4lua.performer'
+local helper = require 'log4lua.helper'
 
 local logger = {
     --- The default logger level
@@ -35,7 +35,7 @@ function logger:set_level(level_)
 end
 
 --- Perform the log using the selected performer.
-local function logger:log(level_, ...)
+function logger:log(level_, ...)
 
     -- just log if the level has more granularity then the selected log level
     if level.value < self.level.value then
@@ -48,26 +48,26 @@ end
 
 --- Log informations that is diagnostically helpful to people more than just 
 --- developers (IT, sysadmins, etc.).
-local function logger:debug(...)
+function logger:debug(...)
     self.log(level.DEBUG, {...})
 end
 
 --- Log useful information to log (service start/stop, configuration assumptions, etc). 
 --- Info is always available but usually don't care about under normal circumstances. 
 --- This is the out-of-the-box config level.
-local function logger:info(...)
+function logger:info(...)
     self.log(level.INFO, {...})
 end
 
 --- Log useful information to log that should be noted (what port the server is using). 
 --- Notice is always available but may be is useful under normal circumstances. 
-local function logger:notice(...)
+function logger:notice(...)
     self.log(level.NOTICE, {...})
 end
 
 --- Log anything that can potentially cause application oddities, but for which 
 --- automatically recovering.
-local function logger:warn(...)
+function logger:warn(...)
     self.log(level.WARN, {...})
 end
 
@@ -75,13 +75,15 @@ end
 --- (can't open a required file, missing data, etc.). These errors will force user
 --- (administrator, or direct user) intervention. These are usually reserved for 
 --- incorrect connection strings, missing services, etc.
-local function logger:error(...)
+function logger:error(...)
     self.log(level.ERROR, {...})
 end
 
 --- Log any error that is forcing a shutdown of the service or application to prevent 
 --- data loss (or further data loss). It's reserved only for the most heinous errors 
 --- and situations where there is guaranteed to have been data corruption or loss.
-local function logger:crit(...)
+function logger:crit(...)
     self.log(level.CRIT, {...})
 end
+
+return logger
