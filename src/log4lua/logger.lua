@@ -38,7 +38,7 @@ end
 function logger:log(level_, ...)
 
     -- just log if the level has more granularity then the selected log level
-    if level.value < self.level.value then
+    if level_.value > self.level.value then
         return
     end
 
@@ -49,26 +49,26 @@ end
 --- Log informations that is diagnostically helpful to people more than just 
 --- developers (IT, sysadmins, etc.).
 function logger:debug(...)
-    self.log(level.DEBUG, {...})
+    self:log(level.DEBUG, {...})
 end
 
 --- Log useful information to log (service start/stop, configuration assumptions, etc). 
 --- Info is always available but usually don't care about under normal circumstances. 
 --- This is the out-of-the-box config level.
 function logger:info(...)
-    self.log(level.INFO, {...})
+    self:log(level.INFO, {...})
 end
 
 --- Log useful information to log that should be noted (what port the server is using). 
 --- Notice is always available but may be is useful under normal circumstances. 
 function logger:notice(...)
-    self.log(level.NOTICE, {...})
+    self:log(level.NOTICE, {...})
 end
 
 --- Log anything that can potentially cause application oddities, but for which 
 --- automatically recovering.
 function logger:warn(...)
-    self.log(level.WARN, {...})
+    self:log(level.WARN, {...})
 end
 
 --- Log any error which is fatal to the operation, but not the service or application 
@@ -76,14 +76,14 @@ end
 --- (administrator, or direct user) intervention. These are usually reserved for 
 --- incorrect connection strings, missing services, etc.
 function logger:error(...)
-    self.log(level.ERROR, {...})
+    self:log(level.ERROR, {...})
 end
 
 --- Log any error that is forcing a shutdown of the service or application to prevent 
 --- data loss (or further data loss). It's reserved only for the most heinous errors 
 --- and situations where there is guaranteed to have been data corruption or loss.
 function logger:crit(...)
-    self.log(level.CRIT, {...})
+    self:log(level.CRIT, {...})
 end
 
 return logger
