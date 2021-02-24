@@ -15,15 +15,33 @@
 require 'busted.runner'()
 
 describe("log4lua.performer", function()
-    local performer = require 'log4lua.performer'
     local level = require 'log4lua.level'
     
     describe("print", function()
-        spy.on(_G, "print")
+        it("should be called", function() 
+            local performer = require 'log4lua.performer'
+            spy.on(_G, "print")
+            performer.stdout(level.INFO, "hello world")
+            assert.spy(print).was.called()
+        end)
+    end)
 
-        performer.stdout(level.INFO, "hello world")
-        
-        assert.spy(print).was.called()
+    describe("nginx", function()
+        it("should be called", function() 
+            local performer = require 'log4lua.performer'
+            
+            _G.ngx = {
+                log = function(log_str)
+                    -- just a mock function to simuleta ngx log
+                end
+            }
+
+            nginx = _G.ngx
+
+            spy.on(nginx, "log")
+            performer.nginx(level.INFO, "hello world")
+            assert.spy(nginx.log).was.called()
+        end)
     end)
 end)
     
