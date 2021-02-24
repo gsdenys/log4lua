@@ -43,7 +43,7 @@ describe("log4lua.logger", function()
 
         it("performer should be nginx", function()
             _G.ngx = {
-                log = function()
+                log = function(str)
                     -- just a mock function
                 end
             }
