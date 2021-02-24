@@ -20,9 +20,17 @@ describe("log4lua.performer", function()
     describe("print", function()
         it("should be called", function() 
             local performer = require 'log4lua.performer'
+
+            local bkp = _G.print
+            _G.print = function(str) 
+                -- just a mock for test propouse
+            end
+
             spy.on(_G, "print")
             performer.stdout(level.INFO, "hello world")
             assert.spy(print).was.called()
+
+            _G.print = bkp
         end)
     end)
 

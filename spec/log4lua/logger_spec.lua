@@ -49,7 +49,12 @@ describe("log4lua.logger", function()
             }
 
             local logger = require 'log4lua.logger'
-            assert.are.equals(logger.performer, performer.nginx)
+
+            nginx = _G.ngx
+
+            spy.on(nginx, "log")
+            performer.nginx(level.INFO, "hello world")
+            assert.spy(nginx.log).was.called()
         end)
     end)
 
