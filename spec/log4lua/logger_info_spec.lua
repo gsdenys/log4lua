@@ -14,29 +14,35 @@
 
 require 'busted.runner'()
 
+-- test case for logger.debug
 describe("logger.debug", function()
     local level = require 'log4lua.level'
 
+    -- use the local logger. in this case method print
     describe("Local", function()
-        -- local bkp = _G.print
-
+        -- ovewrite function print and use a mock to do not print output
         _G.print = function(src)
             -- just a mock function
         end
+
+        -- get logger and set info level
+        local logger = require 'log4lua.logger'
+        logger:set_level(level.INFO)
     
-        it("print should be called", function()
-            local logger = require 'log4lua.logger'
-            logger:set_level(level.DEBUG)
-                
+    
+        it("logger.info should call print function", function()    
             spy.on(_G, "print")
-            logger:debug("hello world")
+            logger:info("hello world")
+            assert.spy(_G.print).was.called()
+        end)
+
+        it("logger.error should call print function", function()
+            spy.on(_G, "print")
+            logger:error("hello world")
             assert.spy(_G.print).was.called()
         end)
     
-        it("print should no be called", function()
-            local logger = require 'log4lua.logger'
-            logger:set_level(level.INFO)
-            
+        it("logger.debug should not call print function", function()
             spy.on(_G, "print")
             logger:debug("hello world")
             assert.spy(_G.print).was_not.called()
@@ -51,19 +57,22 @@ describe("logger.debug", function()
     }
 
     describe("NGINX", function()
-        it("_G.ngx.log should be called", function()
-            local logger = require 'log4lua.logger'
-            logger:set_level(level.DEBUG)
-            
+        local logger = require 'log4lua.logger'
+        logger:set_level(level.INFO)
+
+        it("logger.info should call _G.ngx.log function", function()    
             spy.on((_G.ngx), "log")
-            logger:debug("hello world")
+            logger:info("hello world")
             assert.spy((_G.ngx).log).was.called()
         end)
 
-        it("_G.ngx.log should no be called", function()
-            local logger = require 'log4lua.logger'
-            logger:set_level(level.INFO)
-            
+        it("logger.error should call _G.ngx.log function", function()
+            spy.on((_G.ngx), "log")
+            logger:error("hello world")
+            assert.spy((_G.ngx).log).was.called()
+        end)
+
+        it("logger.debig should not call _G.ngx.log function", function()
             spy.on((_G.ngx), "log")
             logger:debug("hello world")
             assert.spy((_G.ngx).log).was_not.called()
