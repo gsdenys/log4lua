@@ -1,7 +1,8 @@
 package = "log4lua"
 version = "scm-2"
 source = {
-  url = "git://github.com/gsdenys/log4lua.git",
+  url = "git://github.com/gsdenys/log4lua.git", 
+  branch = "1.0.0"
 }
 description = {
    summary = "Multi environment lua logger",
