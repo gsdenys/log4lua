@@ -12,23 +12,21 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
-require 'pl'
+require 'busted.runner'()
 
-local info = require 'log4lua.info'
 local level = require 'log4lua.level'
 
--- create composition of log4lua and info table
-local log4lua = tablex.merge(level, info, true)
+-- use the local logger. in this case method print
+describe("Log4lua", function()
+    local log4lua = require 'log4lua'
+    local logger = log4lua.get_logger(level.INFO)
 
---- Create new logger object that possibilite use of log element
-function log4lua.get_logger(level_)
-    local logger = require 'log4lua.logger'
+    it("logger shoul exist", function()    
+        assert.truthy(logger)
+    end)
 
-    if level_ ~= nil then
-        logger.set_level(level_)
-    end
+    it("logger shoul have INFO level", function()    
+        assert.same(logger.level, level.INFO)
+    end)
 
-    return logger
-end
-
-return log4lua
+end)
