@@ -18,30 +18,32 @@ require 'busted.runner'()
 describe("logger.debug", function()
     local level = require 'log4lua.level'
 
+    -- ovewrite function print and use a mock to do not print output
+    _G.print = function(src)
+        -- just a mock function
+    end
+
     -- use the local logger. in this case method print
     describe("Local", function()
-        -- ovewrite function print and use a mock to do not print output
-        _G.print = function(src)
-            -- just a mock function
-        end
-
         -- get logger and set info level
         local logger = require 'log4lua.logger'
         logger:set_level(level.INFO)
     
-    
+        -- call logger:info with level.INFO
         it("logger.info should call print function", function()    
             spy.on(_G, "print")
             logger:info("hello world")
             assert.spy(_G.print).was.called()
         end)
 
+        -- call logger:error with level.INFO
         it("logger.error should call print function", function()
             spy.on(_G, "print")
             logger:error("hello world")
             assert.spy(_G.print).was.called()
         end)
     
+        -- call logger:debug with level.INFO
         it("logger.debug should not call print function", function()
             spy.on(_G, "print")
             logger:debug("hello world")
@@ -49,29 +51,33 @@ describe("logger.debug", function()
         end)
     end)
     
+    -- add _G.ngx object to simulate NGINX environment
     _G.ngx = {
         log = function(level, log_str)
-            print("ola")
             -- just a mock function to simuleta ngx log
         end
     }
 
+    -- test simulating NGINX enviroment
     describe("NGINX", function()
         local logger = require 'log4lua.logger'
         logger:set_level(level.INFO)
 
+         -- call logger:info with level.INFO
         it("logger.info should call _G.ngx.log function", function()    
             spy.on((_G.ngx), "log")
             logger:info("hello world")
             assert.spy((_G.ngx).log).was.called()
         end)
 
+         -- call logger:error with level.INFO
         it("logger.error should call _G.ngx.log function", function()
             spy.on((_G.ngx), "log")
             logger:error("hello world")
             assert.spy((_G.ngx).log).was.called()
         end)
 
+         -- call logger:debug with level.INFO
         it("logger.debig should not call _G.ngx.log function", function()
             spy.on((_G.ngx), "log")
             logger:debug("hello world")
