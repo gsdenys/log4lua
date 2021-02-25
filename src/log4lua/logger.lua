@@ -16,12 +16,23 @@ local level = require 'log4lua.level'
 local performer = require 'log4lua.performer'
 local helper = require 'log4lua.helper'
 
+local function getPerformer() 
+    if _G.ngx then
+        if _G.ngx.log then
+            return performer.nginx
+        end
+    end
+    
+    return performer.stdout
+end
+
+
 local logger = {
     --- The default logger level
     level = level.INFO,
 
     --- The default logger performer based on the deploy environment
-    performer = _G.ngx and performer.nginx or performer.stdout 
+    performer = getPerformer() 
 }
 
 --- Set the log level. in case of level are nil, the level info will be selected.
